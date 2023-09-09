@@ -1,0 +1,106 @@
+﻿@model BanSach.Models.admin
+
+@{
+    ViewBag.Title = "ThemAD";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm tài khoản admin</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="username" name="username" type="text" value="@Model.username" placeholder="Username" />
+                <label for="username">Username</label>
+            </div>
+            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="password" name="password" type="text" value="@Model.password" placeholder="Password" />
+                <label for="password">Password</label>
+            </div>
+            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="ten" name="ten" type="text" value="@Model.ten" placeholder="Họ tên" />
+                <label for="ten">Họ tên</label>
+            </div>
+            @Html.ValidationMessageFor(model => model.ten, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="diachi" name="diachi" type="text" value="@Model.diachi" placeholder="Địa chỉ" />
+                <label for="diachi">Địa chỉ</label>
+            </div>
+            @Html.ValidationMessageFor(model => model.diachi, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="email" name="email" type="text" value="@Model.email" placeholder="Email" />
+                <label for="email">Email</label>
+            </div>
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="sdt" name="sdt" type="text" value="@Model.sdt" placeholder="Số điện thoại" />
+                <label for="sdt">Số điện thoại</label>
+            </div>
+            @Html.ValidationMessageFor(model => model.sdt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="luong" name="luong" type="text" value="@Model.luong" placeholder="Lương" />
+                <label for="luong">Lương</label>
+            </div>
+            @Html.ValidationMessageFor(model => model.luong, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="form-floating mb-3">
+                <input class="form-control" id="ngaylamviec" name="ngaylamviec" value="@Model.ngaylamviec" type="date" placeholder="Enter your last name" />
+                <label for="ngaylamviec">Ngày làm việc</label>
+            </div>
+        </div> 
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Thêm" class="btn btn-default btn btn-info" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Quay lại", "User")
+</div>

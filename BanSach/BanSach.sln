@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanSach", "BanSach\BanSach.csproj", "{5BDB6B48-D6FC-4280-81D3-EA330D791C2B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5BDB6B48-D6FC-4280-81D3-EA330D791C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BDB6B48-D6FC-4280-81D3-EA330D791C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BDB6B48-D6FC-4280-81D3-EA330D791C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BDB6B48-D6FC-4280-81D3-EA330D791C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C7EC3FC5-D34C-4A56-8672-2CC35ABCEA49}
+	EndGlobalSection
+EndGlobal

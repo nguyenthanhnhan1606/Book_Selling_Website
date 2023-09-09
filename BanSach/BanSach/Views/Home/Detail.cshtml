@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    BanSach.Models.dbbansachEntities2 db = new BanSach.Models.dbbansachEntities2();
+    var s = db.Sach.ToList();
+    foreach (var item in s)
+    {
+        if ( (int)Session["id"] == item.maSach)
+        {
+            <h1 class="text-center text-danger">CHI TIẾT SẢN PHẨM</h1>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <img src="@item.image" class="img-fluid" alt="@item.tenSach" />
+                </div>
+                <div class="col-md-8 col-sm-12">
+                    <h1>@item.tenSach</h1>
+                    <h1>@item.tenTacGia|safe </h1>
+                    <h3>@string.Format("{0:#,0}", @item.GiaTien) VNĐ</h3>
+                    @if (Session["user"] != null)
+                    {
+                        <a href="/Cart/AddToCart/@item.maSach" class="btn btn-danger">Đặt hàng</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("LoginUser","Home")" class="btn btn-danger">Đặt hàng</a>
+                    }
+                    <a href="/" class="btn btn-primary" style="margin-left:10px;">Hủy</a>
+                </div>
+            </div>
+        }
+    }
+
+}
+
+

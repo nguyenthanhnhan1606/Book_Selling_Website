@@ -1,0 +1,32 @@
+﻿@model List<BanSach.Models.Sach>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-12" style="padding:10px;">
+            <div class="card" style="background-color:#CAFAFE;">
+                <img class="card-img-top" src="@item.image" alt="@item.tenSach">
+                <div class="card-body">
+                    <h4 class="card-title">@item.tenSach</h4>
+                    <p class="card-text">@string.Format("{0:#,0}", @item.GiaTien) VNĐ</p>
+                    <a href="~/Home/Detail?id=@item.maSach" class="btn btn-primary">Xem chi tiết</a>
+                    @if (Session["user"] != null)
+                    {
+                        <a href="/Cart/AddToCart/@item.maSach" class="btn btn-danger">Đặt hàng</a>
+                        if (Session["alert"] != null)
+                        {
+                            Session["alert"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("LoginUser","Home")" class="btn btn-danger">Đặt hàng</a>
+                    }
+                </div>
+            </div>
+        </div>
+    } 
+</div>

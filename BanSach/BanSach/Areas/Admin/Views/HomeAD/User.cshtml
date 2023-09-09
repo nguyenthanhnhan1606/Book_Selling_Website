@@ -1,0 +1,96 @@
+﻿@model List<BanSach.Models.User>
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1 class="mt-4">Danh sách khách hàng</h1>
+<div class="row">
+    <div class="row-cols-lg-2">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>Cập nhật</th>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Tên</th>
+                <th>Ngày sinh</th>
+                <th>Số điện thoại</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="list-buttons-column">
+                        <a class="icon" href="~/Admin/HomeAD/CapNhatUser?id=@item.id" title="Sửa">
+                            <i class="fa fa-pencil glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <a class="icon" onclick="if (confirm('Bạn có chắc muốn xóa không?') == true) { location.href='/Admin/HomeAD/Xoa?id=@item.id' }" title="Xóa">
+                            <i class="fa fa-trash glyphicon glyphicon-trash"></i>
+                        </a>
+                    </td>
+                    <td>@item.id</td>
+                    <td>@item.username</td>
+                    <td>@item.password</td>
+                    <td>@item.ten</td>
+                    <td>@item.ngaysinh</td>
+                    <td>@item.sdt</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-7 col-sm-12">
+        <a class="nav-link" href="@Url.Action("Register", "HomeAD")" title="Thêm sách">
+            <button type="button" class="btn btn-info">Thêm tài khoản</button>
+        </a>
+    </div>
+</div>
+<h1 class="mt-4">Danh sách nhân viên</h1>
+<div class="row">
+    <div class="row-cols-lg-2">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>Cập nhật</th>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Tên</th>
+                <th>Địa chỉ</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Lương</th>
+                <th>Ngày làm việc</th>
+            </tr>
+            @{
+                BanSach.Models.dbbansachEntities2 db = new BanSach.Models.dbbansachEntities2();
+                var ad = db.admin.ToList();
+                foreach (var item in ad)
+                {
+                        <tr>
+                            <td class="list-buttons-column">
+                                <a class="icon" href="~/Admin/HomeAD/CapNhatAdmin?id=@item.id" title="Sửa">
+                                    <i class="fa fa-pencil glyphicon glyphicon-pencil"></i>
+                                </a>
+                                <a class="icon" onclick="if (confirm('Bạn có chắc muốn xóa không?') == true) { location.href='/Admin/HomeAD/XoaAD?id=@item.id' }" title="Xóa">
+                                    <i class="fa fa-trash glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                            <td>@item.id</td>
+                            <td>@item.username</td>
+                            <td>@item.password</td>
+                            <td>@item.ten</td>
+                            <td>@item.diachi</td>
+                            <td>@item.email</td>
+                            <td>@item.sdt</td>
+                            <td>@item.luong</td>
+                            <td>@item.ngaylamviec</td>
+                        </tr>
+                }
+            }
+
+        </table>
+    </div>
+    <div class="col-md-7 col-sm-12">
+        <a class="nav-link" href="@Url.Action("ThemAD", "HomeAD")" title="Thêm sách">
+            <button type="button" class="btn btn-info">Thêm tài khoản</button>
+        </a>
+    </div>
+</div>

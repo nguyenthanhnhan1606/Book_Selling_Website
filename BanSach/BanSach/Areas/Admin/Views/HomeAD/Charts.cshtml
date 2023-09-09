@@ -1,0 +1,136 @@
+﻿@model IEnumerable<BanSach.Models.HoaDon>
+@{
+    List<BanSach.Models.HoaDon> h = Model.ToList();
+    ViewBag.Title = "Charts";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center text-success">BÁO CÁO DOANH THU</h1>
+
+<div class="row">
+    <div class="col-md-5 col-sm-12">
+        <table class="table">
+            <tr>
+                <th>Thể loại sách</th>
+                <th>Số lượng sách bán</th>
+                <th>Doanh thu</th>
+                <th>Tỷ lệ daonh thu</th>
+            </tr>
+            @{
+                var db = new BanSach.Models.dbbansachEntities2();
+                var cthd = (from ha in h join ct in db.ChiTietHoaDon on ha.maHD equals ct.id_maHD 
+                            join s in db.Sach on ct.id_sach equals s.maSach
+                            join tl in db.TheLoaiSach on s.sach_TLS equals tl.maTLS
+                            select new
+                            {
+                                ct.gia,
+                                ct.soluong,
+                                tl.maTLS,
+                                tl.tenTLS
+                            }).AsEnumerable().GroupBy(m => m.tenTLS).Select(g => new
+                            {
+                                tenTLS = g.Key,
+                                soluong = g.Sum(s => s.soluong),
+                                total = g.Sum(s => s.soluong * s.gia)
+                            });
+                var tt = db.ChiTietHoaDon.Sum(x => x.gia * x.soluong);
+                foreach (var item in cthd)
+                {
+                    <tr>
+                        <td>@item.tenTLS</td>
+                        <td>@item.soluong</td>
+                        <td>@string.Format("{0:#,0}", @item.total)</td>
+                        <td>@string.Format("{0:#,0}", (@item.total / tt) * 100)%</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="col-md-7 col-sm-12">
+        <form>
+            <div class="form-group">
+                <label>Từ ngày</label>
+                <input type="date" name="from_date" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label>Đến ngày</label>
+                <input type="date"  name="to_date" class="form-control" required/>
+            </div>
+            <div>
+                <input type="submit" value="Lọc dữ liệu" class="btn btn-info" />
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="d-flex gap-5">
+    <div style="width:500px">
+        <canvas id="myChart" width="600px"></canvas>
+    </div>
+    <div style="width:500px;">
+        <canvas id="myChart1" width="600px"></canvas>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    const ctx= document.getElementById('myChart');
+    var labels = []
+    var data=[]
+    @foreach (var i in cthd)
+    {
+        @:labels.push('@i.tenTLS')
+        @:data.push(@i.total)
+    }
+    console.log(data)
+    console.log(labels)
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Doanh thu',
+                data: data,
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+    const ctx1 = document.getElementById('myChart1');
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Tỷ lệ',
+                data: data,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+﻿@model List<BanSach.Models.Sach>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="mt-4">Danh sách tất cả sản phẩm Javascript</h1>
+<div class="row">
+    <div class="row-cols-lg-2">
+        <table class="table table-striped">
+            <tr class="table-dark">
+                <th>Cập nhật</th>
+                <th>Mã sách</th>
+                <th>Tên Sách</th>
+                <th>Thể loại sách</th>
+                <th>Tên tác giả</th>
+                <th>Gía tiền</th>
+                <th>Tên nhà cung cấp</th>
+                <th>Hình ảnh</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                if (item.sach_TLS == 3)
+                {
+                    <tr>
+                        <<td class="list-buttons-column">
+                             <a class="icon"  href="~/Admin/SanPham/CapNhat?id=@item.maSach" title="Sửa">
+                                <i class="fa fa-pencil glyphicon glyphicon-pencil"></i>
+                            </a>
+                            <a class="icon" onclick ="if (confirm('Bạn có chắc muốn xóa không?') == true) { location.href='/Admin/SanPham/Xoa?id=@item.maSach' }" title="Xóa">
+                                <i class="fa fa-trash glyphicon glyphicon-trash"></i>
+                            </a>
+                        </td>
+                        <td>@item.maSach</td>
+                        <td>@item.tenSach</td>
+                        <td>@item.sach_TLS</td>
+                        <td>@item.tenTacGia</td>
+                        <td>@string.Format("{0:#,0}", @item.GiaTien)</td>
+                        <td>@item.sach_ncc</td>
+                        <td>@item.image</td>
+                    </tr>
+                }
+
+            }
+        </table>
+    </div>
+    <div class="col-md-7 col-sm-12">
+        <a class="nav-link" href="@Url.Action("Them", "SanPham")" title="Thêm sách">
+            <button type="button" class="btn btn-info">Thêm sách</button>
+        </a>
+    </div>
+</div>

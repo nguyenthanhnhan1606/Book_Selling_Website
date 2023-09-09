@@ -1,0 +1,100 @@
+﻿@model BanSach.Models.Sach
+
+@{
+    ViewBag.Title = "Them";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 style="color:burlywood">Thêm sách</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="tenSach" name="tenSach" type="text" value="@Model.tenSach" placeholder="Tên sách" />
+                    <label for="tenSach">Tên sách</label>
+                </div>
+                @Html.ValidationMessageFor(model => model.tenSach, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="tenTacGia" name="tenTacGia" type="text" value="@Model.tenTacGia" placeholder="Tên tác giả" />
+                    <label for="tenTacGia">Tên tác giả</label>
+                </div>
+                @Html.ValidationMessageFor(model => model.tenTacGia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="GiaTien" name="GiaTien" type="text" value="@Model.GiaTien" placeholder="Tên tác giả" />
+                    <label for="GiaTien">Giá tiền</label>
+                </div>
+                @Html.ValidationMessageFor(model => model.GiaTien, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h11>Nhà cung cấp</h11>
+            <div class="col-md-10">
+                @{ 
+                    BanSach.Models.dbbansachEntities2 db = new BanSach.Models.dbbansachEntities2();
+                    var ncc = db.NhaCungCap.ToList();
+                    <select name="sach_ncc" class="form-select" aria-label="Default select example">
+                        @foreach (var item in ncc)
+                        {
+                            <option value="@item.idNCC">@item.tenNCC</option>
+                        }
+                    </select>
+                }
+                @Html.ValidationMessageFor(model => model.sach_ncc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h11>Thể loại sách</h11>
+            <div class="col-md-10">
+                     @{
+                        BanSach.Models.dbbansachEntities2 db1 = new BanSach.Models.dbbansachEntities2();
+                        var tls = db1.TheLoaiSach.ToList();
+                        <select name="sach_TLS" class="form-select" aria-label="Default select example">
+                            @foreach (var item in tls)
+                            {
+                                <option value="@item.maTLS">@item.tenTLS</option>
+                                }
+                        </select>   
+                    }
+
+                    @Html.ValidationMessageFor(model => model.sach_TLS, "", new { @class = "text-danger" })
+                </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm" class="btn btn-default btn btn-info" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Quay lại trang ALL", "ALL")
+</div>

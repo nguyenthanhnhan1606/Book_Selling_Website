@@ -1,0 +1,57 @@
+﻿@model BanSach.Models.Cart
+
+@{
+    ViewBag.Title = "ShowToCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center text-danger">GIỎ HÀNG</h1>
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div>
+    @if (Model != null)
+    {
+        <table class="table">
+            <tr>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.Items)
+            {
+                double total = Convert.ToDouble(item.sach_dat.GiaTien.Value * item.soLuong);
+                <tr id=">@item.sach_dat.maSach">
+                    <td name="id">@item.sach_dat.maSach</td>
+                    <td>@item.sach_dat.tenSach</td>
+                    <td>@string.Format("{0:#,0}", @item.sach_dat.GiaTien) VNĐ</td>
+                    <td class="flex-wrap ">
+                        @using (Html.BeginForm("UpdateCart", "Cart"))
+                        {
+                            <input type="hidden" name="id" value="@item.sach_dat.maSach" />
+                            <input type="number" name="quantity" value="@item.soLuong" class="form-control" />
+                            <input type="submit" value="Cập Nhật" class="btn btn-info" />
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="/Cart/Remove/@item.sach_dat.maSach">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="alert alert-info">
+            <h3>Tổng sản phẩm: <span class="cart-counter">@Model.TongSP()</span></h3>
+            <h3>Tổng tiền: <span class="cart-amount">@string.Format("{0:#,0}", @Model.TongTien())</span> VNĐ</h3>
+        </div>
+
+        <div>
+            <a class="btn btn-info" href="/ThanhToan/ThanhToanHD">Thanh Toán</a>
+        </div>
+    }
+    else
+    {
+        <p>Không có sản phẩm trong giỏ!</p>
+    }
+</div>
+

@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="mt-4">Trang chủ</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active" style="color:red;font-size:20px">Chào bạn @Session["username"].ToString()</li>
+</ol>
